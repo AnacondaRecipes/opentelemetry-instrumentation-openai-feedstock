@@ -1,51 +1,53 @@
 {% set name = "opentelemetry-instrumentation-openai" %}
-{% set version = "0.47.3" %}
+{% set version = "0.47.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/opentelemetry_instrumentation_openai-{{ version }}.tar.gz
-  sha256: e9b4c5a3b119cdf6a023eaf2ebff3feaaf0f3a1fc1616c3ce802b8644d3eab62
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
+  sha256: c9cddf1dee55a117fb44e0e46d39d9e80db2e67fdae9666394d7b8932dd53b91
 
 build:
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true  # [py<39]
 
 requirements:
   host:
-    - python {{ python_min }}
-    - poetry-core
     - pip
+    - python
+    - poetry-core
   run:
-    - python >={{ python_min }}
+    - python
     - opentelemetry-api >=1.28.0,<2.0.0
     - opentelemetry-instrumentation >=0.50b0
     - opentelemetry-semantic-conventions >=0.50b0
-    - opentelemetry-semantic-conventions-ai >=0.4.12,<0.5.0
-    - tiktoken >=0.6.0,<1
-    - typing-extensions
+    - opentelemetry-semantic-conventions-ai >=0.4.13,<0.5.0
+  run_constrained:
+    - openai ==1.99.7
 
+# Tests and import skipped, needs openai version 1.99.7, latest in the main channel is 1.77.0 
 test:
-  imports:
-    - opentelemetry.instrumentation.openai
   commands:
     - pip check
   requires:
-    - openai
     - pip
-    - python {{ python_min }}
 
 about:
   home: https://www.traceloop.com/openllmetry
   dev_url: https://github.com/traceloop/openllmetry
   doc_url: https://www.traceloop.com/docs/openllmetry/introduction
   summary: OpenTelemetry OpenAI instrumentation
+  description: |
+    This library allows tracing OpenAI prompts and completions sent with the official OpenAI library.
   license: Apache-2.0
+  license_family: Apache
   license_file: LICENSE
 
 extra:
   recipe-maintainers:
     - timkpaine
+  skip-lints:
+    - invalid_url
