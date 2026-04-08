@@ -49,3 +49,5 @@ extra:
     - timkpaine
   skip-lints:
     - reachable_url
+    - missing_imports_or_run_test_py
+
