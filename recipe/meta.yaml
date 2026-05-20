@@ -25,8 +25,9 @@ requirements:
     - opentelemetry-instrumentation >=0.59b0
     - opentelemetry-semantic-conventions >=0.59b0
     - opentelemetry-semantic-conventions-ai >=0.5.1,<0.6.0
+  # We have newer versions of the OpenAI library in the main channel
   run_constrained:
-    - openai ==1.99.7
+    - openai >=1.99.7
 
 test:
   imports:
@@ -35,6 +36,7 @@ test:
     - pip check
   requires:
     - pip
+    - openai
 
 about:
   home: https://www.traceloop.com/openllmetry
