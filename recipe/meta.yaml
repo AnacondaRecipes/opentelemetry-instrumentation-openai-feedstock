@@ -25,9 +25,12 @@ requirements:
     - opentelemetry-instrumentation >=0.59b0
     - opentelemetry-semantic-conventions >=0.59b0
     - opentelemetry-semantic-conventions-ai >=0.5.1,<0.6.0
+  run_constrained:
+    - openai ==1.99.7
 
-# Tests and import skipped, needs openai version 1.99.7, latest in the main channel is 1.77.0 
 test:
+  imports:
+    - opentelemetry.instrumentation.openai
   commands:
     - pip check
   requires:
@@ -49,5 +52,4 @@ extra:
     - timkpaine
   skip-lints:
     - reachable_url
-    - missing_imports_or_run_test_py
 
