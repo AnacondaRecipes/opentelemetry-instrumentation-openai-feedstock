@@ -1,13 +1,13 @@
 {% set name = "opentelemetry-instrumentation-openai" %}
-{% set version = "0.57.0" %}
+{% set version = "0.62.1" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
-  sha256: 8192e81bab0d35e6aa35271940ba4a147b1190e27c8d142489f0bda81baee5b7
+  sha256: c40b1af21c0823feab264040a5ff3e0bae61bf79a45099bd7c2c1825c3e16d93
 
 build:
   number: 0
@@ -23,8 +23,8 @@ requirements:
     - python
     - opentelemetry-api >=1.38.0,<2.0.0
     - opentelemetry-instrumentation >=0.59b0
-    - opentelemetry-semantic-conventions >=0.59b0
     - opentelemetry-semantic-conventions-ai >=0.5.1,<0.6.0
+    - opentelemetry-semantic-conventions >=0.63b1
 
 test:
   imports:
